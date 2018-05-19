@@ -35,6 +35,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const apiKey='fa46b4109ae577006f5ed95cece9b166855021fc516306c06f350b2323ff70ab';
+    const backgroundURL =
+      `https://api.unsplash.com/photos/?client_id=${apiKey}`;
+    // const quoteURL = "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
+    let backgroundResponse;
+    axios.get(backgroundURL).then(res => {
+      console.log(res);
+      backgroundResponse = res.data[0].urls.full ;
+    })
     const dbRef = firebase.database().ref('todos');
   
     dbRef.on('value', (snapshot) => {
@@ -58,7 +67,8 @@ class App extends React.Component {
   
       this.setState({
         todos: todoArray,
-        completedTodos: completedTodosArray
+        completedTodos: completedTodosArray,
+        backgroundURL: backgroundResponse
       });
     });
   }
@@ -115,7 +125,14 @@ class App extends React.Component {
     render() {
       return (
         
-        <div>
+        <div
+          style={{
+    background: `url("${this.state.backgroundURL}") center center no-repeat fixed`,
+    backgroundSize: "cover",
+      height: "100vh",
+        width: "100vw"
+
+}}>
           {localStorage.getItem("name") === null ? (
               <div className="app-name">
                 <h1>Hi, what is your name?</h1>
@@ -126,14 +143,22 @@ class App extends React.Component {
                 />
               </div>
             ) : (
-            <div>
-              <h1>Todo app</h1>
+            <div>             
+              <div className="todo">     
+                  <h1>Todo app</h1>  
+                  {this.state.todos.length === 0 ? (
+                    <div className="todo-nothing">
+                      <p>There is nothing to do! &#x263A;</p>
+                  </div>
+                ) : (
                 <p>{this.state.todos.length} to do</p>
-                
+                       
+                )
+              }
               <form action="" onSubmit={this.handleSubmit}>
-                <input type="text" name="task" onChange={this.handleChange} placeholder="New Todo" value={this.state.task}/>
+                <input className="todoitem-input" type="text" name="task" onChange={this.handleChange} placeholder="New Todo" value={this.state.task}/>
               </form>               
-              <ul>
+              <ul className="todo-list">
                 {this.state.todos.map((todoItem) => {
                   return (  
                        
@@ -147,6 +172,7 @@ class App extends React.Component {
                     )
                 })}
               </ul>
+             </div>
                 
                 <div className="container-clock">
                   <Clock name={this.state.name} />
@@ -156,9 +182,8 @@ class App extends React.Component {
                 <Quote />
               </div>
 
-
-             
-            </div>
+              </div>
+           
           )}
           </div>
       )

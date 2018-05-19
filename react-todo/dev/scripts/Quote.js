@@ -11,15 +11,19 @@ class Quote extends React.Component {
     }
      
     componentDidMount() {
+       
         const quoteURL = 
         "https://talaikis.com/api/quotes/random/";
+        // const quoteURL = "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
 
         axios.get(quoteURL).then(res => {
+            console.log(res);
             this.setState({
                 quote: res.data.quote,
                 author: res.data.author
             });
-        });
+        })
+        
     }
 
     render() {
