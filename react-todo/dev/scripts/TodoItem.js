@@ -10,10 +10,12 @@ const TodoItem = (props) => {
         // onDrop={this.handleDrop}
         >
         
-            <p>{props.task} </p>
-            {/* {props.user} */}       
-            <button onClick={() => props.completedTodo(props.task)}>Completed</button>
-            <button onClick={() => props.removeTodo(props.task)}>X</button>
+            <p>{props.task} </p>     
+            {/* <label className="form-check-label">
+                <input type="checkbox" className="form-check-input" onChange={this.markCompleted} /> {this.props.text}
+            </label> */}
+            <button onClick={() => props.completedTodo(props.firebaseKey, props.completed)}>Done</button>
+            <button onClick={() => props.removeTodo(props.firebaseKey)}>x</button>
         
         </li>
     )

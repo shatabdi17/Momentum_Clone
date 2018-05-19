@@ -4,13 +4,26 @@ import axios from 'axios';
 import TodoItem from './TodoItem';
 import Quote from './Quote';
 import Clock from './Clock';
+import firebase from 'firebase';
+
+
+const config = {
+  apiKey: "AIzaSyB-eGBY9pBO8r0RKJAxLX2L3ygx9j7Rw6I",
+  authDomain: "project5-74f4c.firebaseapp.com",
+  databaseURL: "https://project5-74f4c.firebaseio.com",
+  projectId: "project5-74f4c",
+  storageBucket: "project5-74f4c.appspot.com",
+  messagingSenderId: "289414904544"
+};
+
+firebase.initializeApp(config);
+
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       task:'',
-      // user:'',
       todos:[],
   
     };
@@ -21,74 +34,73 @@ class App extends React.Component {
     this.handleKeyup = this.handleKeyup.bind(this);
   }
 
+  componentDidMount() {
+    const dbRef = firebase.database().ref('todos');
+  
+    dbRef.on('value', (snapshot) => {
+
+      const data = snapshot.val();
+    
+      const todoArray = [];
+    
+      for (let item in data) {
+        
+        
+      
+        data[item].key = item;
+
+        todoArray.push(data[item]);
+      }
+      console.log(todoArray)
+      const completedTodosArray = todoArray.filter((todo) => {
+        return todo.completed === true;
+      });
+  
+      this.setState({
+        todos: todoArray,
+        completedTodos: completedTodosArray
+      });
+    });
+  }
+
 
 
   handleSubmit(e) {
     e.preventDefault();
-    //here we use Array.from to clone the todos state.
-    // This will produce a brand new copy of the values stored in this.state.todos.array.
-    // the key is we DO NOT mutate the original array
-    const todosClone = Array.from(this.state.todos);
+  
     const todo = {
       value: this.state.task,
-      user:this.state.user,
       completed:false
     };
-    todosClone.push(todo);
+
+    console.log(todo);
+    const dbRef = firebase.database().ref('todos');
+   // const dbRefusers = firebase.database().ref('todos/user');
+    dbRef.push(todo);
+
 
     this.setState({
-      task:'',
-      // user:'',
-      todos: todosClone
+      task:''
     });
   }
   handleChange(e) {   
-    //console.log(e.target.value);
     this.setState({
-      //todo:e.target.value;
       [e.target.name]: e.target.value
     });
     
   }
 
-  removeTodo(taskName) {
-    console.log('Remove todo');
-    // clone the state todos, important to NOT mutate theoriginal array, 
-    //So calling Array.from (this.state.todos) will take all the values in that array at that point in time, and clone..shallow copy
-    //console.log(taskName);
-    const todosClone = Array.from(this.state.todos);
-    // Here we use the findIndex method method to take our array of elements, and find the one whose value matcehes the taskName to this method
-    const itemToRemoveIndex = todosClone.findIndex((todoItem) => {
-      // Once this callback function returns true, it will provide us the index value
-      return todoItem.value === taskName;
-    });
+  removeTodo(keyToRemove) {
+   
+    firebase.database().ref(`todos/${keyToRemove}`).remove();
+}
 
-    console.log(itemToRemoveIndex);
-// With this value, we can then splice out the element from the array
-    todosClone.splice(itemToRemoveIndex,1);
-    //Finally we can set the state of the todos to be our new version. Allowing React the info needed to figure out what IT needs to render
-    this.setState ({
-      todos: todosClone
-    });
-    
-  }
-
-  completedTodo (taskName) {
-    console.log(taskName);
-    const todosClone = Array.from(this.state.todos);
-    //using the taskname , we need to find the object that matches that name in our state todos
-    const itemsToCompleteIndex = todosClone.findIndex((completedItem) => {
-      return completedItem.value === taskName;
-    });
-    console.log(itemsToCompleteIndex);
-    // with that object, we want to toggle the completed method,
-    todosClone[itemsToCompleteIndex].completed = todosClone[itemsToCompleteIndex].completed === true ? false : true;  
-    // if it is true, it should be false, and vice versa
-    // then update our state with this new altered array
-    this.setState({
-      todos: todosClone
-    });
-  }
+  completedTodo(keyToUpdate, completed) {
+    firebase.database().ref(`todos/${keyToUpdate}`)
+      .update({
+        completed: completed === true ? false : true
+      });
+}
 
 
   handleKeyup (e)  {
@@ -98,15 +110,12 @@ class App extends React.Component {
       });
       localStorage.setItem("name", e.target.value)
     };
-  }
+  } 
 
     render() {
       return (
-
-        // <div>
-        //   url(``)
-        // </div>
-          <div>
+        
+        <div>
           {localStorage.getItem("name") === null ? (
               <div className="app-name">
                 <h1>Hi, what is your name?</h1>
@@ -119,40 +128,60 @@ class App extends React.Component {
             ) : (
             <div>
               <h1>Todo app</h1>
+                <p>{this.state.todos.length} to do</p>
+                
               <form action="" onSubmit={this.handleSubmit}>
                 <input type="text" name="task" onChange={this.handleChange} placeholder="New Todo" value={this.state.task}/>
-                {/* <input type="text" name="user" onChange={this.handleChange} placeholder="User to do todo" value={this.state.user}/> */}
-                {/* <input type="submit" /> */}
-                  <button type="submit">+</button>
-              </form>
+              </form>               
               <ul>
-                {this.state.todos.map((todoItem,i) => {
-
-                  return (
-                      <TodoItem 
-                      key={i}
-                      task={todoItem.value} 
-                      // user={todoItem.user} 
-                      removeTodo={this.removeTodo}
-                      completedTodo={this.completedTodo}
-                      completed={todoItem.completed}/>
+                {this.state.todos.map((todoItem) => {
+                  return (  
+                       
+                      <TodoItem
+                        key={todoItem.key}
+                        task={todoItem.value}
+                        firebaseKey={todoItem.key}
+                        removeTodo={this.removeTodo}
+                        completedTodo={this.completedTodo}
+                        completed={todoItem.completed} />                                   
                     )
                 })}
               </ul>
+                
+                <div className="container-clock">
+                  <Clock name={this.state.name} />
+                </div>
 
               <div className="container-quote">
                 <Quote />
               </div>
 
-              <div className="container-clock">
-                    <Clock name={this.state.name} />
-              </div>
+
+             
             </div>
           )}
-        </div>
+          </div>
       )
     }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
+
+
+// {this.state.todos.length === 0 ? (
+//     <div className="todo-nothing">
+//       <p>There is nothing to do!</p>
+//       <h1>&#x263A;</h1>
+//     </div>
+//   ) : (
+
+// style = {{
+//   background: `url(https://source.unsplash.com/collection/nature${
+//     window.screen.width
+//     }x${window.screen.height}) center center no-repeat fixed`,
+//     backgroundSize: "cover",
+//       height: "100vh",
+//         width: "100vw"
+
+// }}
