@@ -35,7 +35,7 @@ class Clock extends React.Component {
                             minute: "2-digit"
                         })}
                     </h1>
-                    <h2 className="greeting">{`Good ${this.state.greet},  ${localStorage.getItem("name")}`}</h2>
+                    <h2 className="greeting">{`Good ${this.state.greet},  ${localStorage.getItem("name")}.`}</h2>
             </div>           
             </div>
         );

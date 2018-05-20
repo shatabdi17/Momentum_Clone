@@ -22,7 +22,7 @@
 .greeting {
     padding: 0;
     margin: 0;
-    // color: #fff;
+    color: #fff;
     text-align: center;
 }
 
@@ -63,8 +63,8 @@
 .quote-body,
 .quote-source {
     margin: 0;
-    // color: rgba(255, 255, 255, .9);
-    //line-height: 120%;
+     color: rgba(255, 255, 255, .9);
+    line-height: 120%;
     transition: all .35s ease
 }
 
@@ -86,7 +86,7 @@
 .quote-source {
     position: absolute;
     font-weight: 300;
-    left: 40%;
+    left: 45%;
     //right: 30%;
     //bottom: 10px;
     font-size: 90%;
@@ -118,11 +118,12 @@
    max-height: 42vh;
    position: absolute;
    bottom: 40px;
-   left: 5px;
+   right: 5px;
     overflow-y: auto;
    h1 {
-       font-size:95%;
+       font-size:100%;
        text-align: right;
+       padding: 10px 0;
    }
    
 }
@@ -134,9 +135,15 @@
     align-content: center;
     justify-content: space-between;
     align-self: center;
+    margin-bottom: 5px;
     p {
         font-size: 20px;
     }
+}
+.smiley-face {
+    font-size:25px;
+    margin-left: 5px;
+    
 }
 
 .todoitem-input {
@@ -162,13 +169,19 @@
 }
 
 .todo-delete {
-    width: 19px;
+    width: 15px;
     border-radius: 50%;
-    height: 19px;
+    height: 15px;
     background: transparent;
     color: white;
     margin-right: 3px;
     margin-left: 7px;
     border: 1px solid white;
     padding: 0px;
+    font-size: 12px;
+    margin-top: 3px;
+}
+.form-check-input {
+    margin-top:3px;
+    margin-right: 5px;
 }

@@ -37,13 +37,19 @@ class App extends React.Component {
   componentDidMount() {
     const apiKey='fa46b4109ae577006f5ed95cece9b166855021fc516306c06f350b2323ff70ab';
     const backgroundURL =
-      `https://api.unsplash.com/photos/?client_id=${apiKey}`;
-    // const quoteURL = "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
+      `https://api.unsplash.com/search/photos/?query=flowers&client_id=${apiKey}`;
+      // `https://api.unsplash.com/search/photos/?query=wanderlust&client_id=${apiKey}`;
+    
+    const randomNum = (max) => Math.floor(Math.random() * max);
     let backgroundResponse;
     axios.get(backgroundURL).then(res => {
-      console.log(res);
-      backgroundResponse = res.data[0].urls.full ;
+      //console.log(res);
+      const randomResults = randomNum(res.data.results.length);
+      //console.log(randomResults);
+      backgroundResponse = res.data.results[randomResults].urls.full;
     })
+    
+
     const dbRef = firebase.database().ref('todos');
   
     dbRef.on('value', (snapshot) => {
@@ -53,9 +59,7 @@ class App extends React.Component {
       const todoArray = [];
     
       for (let item in data) {
-        
-        
-      
+              
         data[item].key = item;
 
         todoArray.push(data[item]);
@@ -148,7 +152,7 @@ class App extends React.Component {
                   <h1>Todo app</h1>  
                   {this.state.todos.length === 0 ? (
                     <div className="todo-nothing">
-                      <p>There is nothing to do! &#x263A;</p>
+                      <p>There is nothing to do! <span className="smiley-face">&#9786;</span></p>
                   </div>
                 ) : (
                 <p>{this.state.todos.length} to do</p>
