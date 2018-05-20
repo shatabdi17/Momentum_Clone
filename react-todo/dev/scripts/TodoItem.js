@@ -13,7 +13,6 @@ const TodoItem = (props) => {
            
             <input type="checkbox" className="form-check-input" checked={props.completed} onChange={() => props.completedTodo(props.firebaseKey, props.completed)}/>        
             <p>{props.task} </p>     
-            {/* <button onClick={() => props.completedTodo(props.firebaseKey, props.completed)}>Done</button> */}
             <button className="todo-delete" onClick={() => props.removeTodo(props.firebaseKey)}>x</button>
         
         </li>

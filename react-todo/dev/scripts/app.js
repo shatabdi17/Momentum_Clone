@@ -147,7 +147,13 @@ class App extends React.Component {
                 />
               </div>
             ) : (
-            <div>             
+            <div>           
+                {/* <div className="main-focus">
+                  <h1>What is the main focus of the day?</h1>
+                  <form action="" onSubmit={this.handleSubmit}>
+                    <input className="todoitem-input" type="text" name="task" onChange={this.handleChange} placeholder="New Todo" value={this.state.task} />
+                  </form>     
+                </div>   */}
               <div className="todo">     
                   <h1>Todo app</h1>  
                   {this.state.todos.length === 0 ? (
@@ -181,7 +187,7 @@ class App extends React.Component {
                 <div className="container-clock">
                   <Clock name={this.state.name} />
                 </div>
-
+                 
               <div className="container-quote">
                 <Quote />
               </div>
