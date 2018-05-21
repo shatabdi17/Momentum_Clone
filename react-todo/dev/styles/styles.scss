@@ -3,37 +3,29 @@
 @import "typography";
 
 
-// html {
-//     font-size: 62.5%;
-// }
-
-
 // APP NAME (USER NAME) 
-
 .app-name {
-     position: absolute;
-     left: 50%;
-     top: 50%;
-     transform: translate(-50%, -50%);
-
-     h1 {
-         color: $white;
-         margin-bottom: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    h1 {
+        color: $white;
+        margin-bottom: 20px;
     }
-.app-input {
-     border: none;
-     color: $black;
-     outline: 0px !important;
-     -webkit-appearance: none;
-     //margin-left: 50px;
-     padding: 10px 20px;
-     width: 70%;
-     //margin: auto;
 }
+
+.app-input {
+    border: none;
+    color: $black;
+    outline: 0px !important;
+    -webkit-appearance: none;
+    margin-left: 70px;
+    padding: 10px 20px;
+    width: 70%;
 }
 
 // CLOCK STYLES
-
 .clock {
     display: flex;
     flex-direction: column;
@@ -46,25 +38,25 @@
 .greeting {
     padding: 0;
     margin: 0;
-    color:$white;
+    color: $white;
     text-align: center;
 }
 
 .clock-face {
     font-size: 18vmin;
-    font-weight: 450;
+    font-weight: 600;
     line-height: 1;
-    letter-spacing: -5px;
+    letter-spacing: -4px;
     margin-top: 300px;
 }
 
-.greeting, .app-name h1 {
-    font-weight: 350;
+.greeting,
+.app-name h1 {
+    font-weight: 550;
     font-size: 6vmin;
 }
 
 // QUOTE STYLES
-
 .container-quote {
     width: 60%;
     position: fixed;
@@ -73,37 +65,21 @@
     transform: translateX(-50%);
     text-align: center;
 }
-// .quote {
-//     height: 80px;
-//     width: 80%;
-//     margin: 0;
-//     padding-bottom: 3px;
-//     display: flex;
-//     align-items: center;
-//     text-align: center;
-//     font-family: "Helvetica Neue, Helvetica, Arial, sans-serif";
-// }
 
 .quote-body,
 .quote-source {
     margin: 0;
-     color: rgba(255, 255, 255, .9);
+    color: rgba(255, 255, 255, .9);
     line-height: 120%;
     transition: all .35s ease
 }
 
 .quote-body {
-   // width: 100%;
-    //display: block;
     position: relative;
     top: 0;
-    //font-size: 112.5%;
-    //margin-top: 350px;
-
 }
 
 .quote:hover .quote-body {
-    //transform: translateY(-50%);
     top: -10px;
 }
 
@@ -111,8 +87,6 @@
     position: absolute;
     font-weight: 300;
     left: 45%;
-    //right: 30%;
-    //bottom: 10px;
     font-size: 90%;
     opacity: 0;
     transform: translateY(-22px);
@@ -124,32 +98,29 @@
 }
 
 .quote-source-text {
-    //margin-right: 3px;
     opacity: .75;
 }
 
 // TO DO APP STYLES BEGIN //
-
 .todo {
-   background-color:$black;
-   opacity: 0.9;
-   color: white;
-   border-radius: 7px;
-   border: 0;
-   padding: 12px;
-   padding-left: 20px;
-   width: 20vw;
-   max-height: 42vh;
-   position: absolute;
-   bottom: 40px;
-   right: 5px;
+    background-color: $black;
+    opacity: 0.9;
+    color: white;
+    border-radius: 7px;
+    border: 0;
+    padding: 12px;
+    padding-left: 20px;
+    width: 20vw;
+    max-height: 42vh;
+    position: absolute;
+    bottom: 40px;
+    right: 5px;
     overflow-y: auto;
-   h1 {
-       font-size:100%;
-       text-align: right;
-       padding: 10px 0;
-   }
-   
+    h1 {
+        font-size: 100%;
+        text-align: right;
+        padding: 10px 0;
+    }
 }
 
 .todo-item {
@@ -164,16 +135,16 @@
         font-size: 20px;
     }
 }
+
 .smiley-face {
-    font-size:25px;
+    font-size: 25px;
     margin-left: 5px;
-    
 }
 
 .todoitem-input {
     width: 200px;
     border: none;
-    background-color:$black;
+    background-color: $black;
     color: $white;
     outline: 0px !important;
     -webkit-appearance: none;
@@ -190,7 +161,6 @@
 
 .completed p {
     text-decoration: line-through;
-    
 }
 
 .todo-delete {
@@ -198,7 +168,7 @@
     border-radius: 50%;
     height: 15px;
     background: transparent;
-    color:$white;
+    color: $white;
     margin-right: 3px;
     margin-left: 7px;
     border: 1px solid $white;
@@ -206,35 +176,37 @@
     font-size: 12px;
     margin-top: 3px;
 }
+
 .form-check-input {
-    margin-top:3px;
+    margin-top: 3px;
     margin-right: 5px;
 }
 
 //--------------
 //MEDIA QUERIES START
 //--------------
-
 @media screen and (max-width: 814px) {
     .app-name {
         left: 45%;
     }
     .todo {
-        top:20px;
+        top: 20px;
         width: 40vh;
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
     .app-name h1 {
         font-size: 9vmin;
-}
- .todo {
-     right: 50px;
-     width: 70vw;
-    
- }
- .clock-face {
-     margin-top:350px;
- }
+    }
+    .todo {
+        right: 50px;
+        width: 70vw;
+    }
+    .clock-face {
+        margin-top: 350px;
+    }
+    .app-input {
+        margin-left: 0;
+    }
 }
