@@ -143,7 +143,10 @@ class App extends React.Component {
                 <input
                   className="app-input"
                   type="text"
-                  onKeyUp={this.handleKeyup}
+                  onKeyUp = {
+                    this.handleKeyup
+                  }
+                  placeholder = "Name"
                 />
               </div>
             ) : (
