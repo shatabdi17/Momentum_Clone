@@ -1,0 +1,1 @@
+Momentum Clone is my version of the chrome extension Momentum, a productivity application. Built using React and firebase, it consist of a to-do app, a main focus of the day section, complete with a news section.
