@@ -22,10 +22,9 @@ class TaskItem extends React.Component {
 
   render() {
     return (
-        // <li className={"todo-item " + (this.state.completed ? "completed": "")}>
-        <li className= {`todo-item ${this.state.completed === true ?  'completed' : ''}`}>
+      <li className= "task-item" >
         <input name="isCompleted" type="checkbox" className="form-check-input"  onChange={this.handleChange}/> 
-          <p>{this.props.name}</p>
+        <p className={this.state.completed === true ? 'completed' : ''}>{this.props.name}</p>
         <button className="todo-delete" onClick={this.handleRemove}> x </button>
       </li>
     );

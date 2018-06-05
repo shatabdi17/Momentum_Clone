@@ -202,7 +202,7 @@ handleKeyup (e)  {
               </ul>
              </div>
               
-              <Button variant="outlined" size="small" aria-owns={this.state.anchorEl ? 'simple-menu' : null}
+              <Button style={{border:"3px solid white", margin: "40px 0 0 20px", color:"white", padding:"7px 17px", borderRadius:"0", fontSize:"1.1rem"}} variant="outlined" size="small" aria-owns={this.state.anchorEl ? 'simple-menu' : null}
                 aria-haspopup="true"
                 onClick={this.handleNewsButtonClick}> News </Button>
                 <Menu
@@ -221,8 +221,8 @@ handleKeyup (e)  {
               <Quote />
               
               <Modal isOpen={this.state.showModal} contentLabel="news">
+                <Button style={{top:"-19px", left:"-19px"}} mini variant="fab" color="primary" size="small" onClick={this.handleCloseModal}>x</Button>
                 <NewsList provider={this.state.newsProvider}/>
-                <Button mini variant="fab" color="primary" size="small" onClick={this.handleCloseModal}>x</Button>
               </Modal>
 
               </div>

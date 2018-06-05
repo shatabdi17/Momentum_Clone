@@ -47,7 +47,7 @@
     font-weight: 600;
     line-height: 1;
     letter-spacing: -4px;
-    margin-top: 300px;
+    margin-top: 200px;
 }
 
 .greeting,
@@ -58,13 +58,18 @@
 
 .container-mainfocus {
     display: block;
-    width: 30%;
+    width: 40%;
     height: 40%;
     text-align: center;
-    border: 1px solid red;
     margin: auto;
     color: white;
+    h2 {
+        font-size: 2rem;
+        padding: 20px 0;
+    }
 }
+
+
 // QUOTE STYLES
 .container-quote {
     width: 60%;
@@ -144,7 +149,18 @@
         font-size: 20px;
     }
 }
-
+.task-item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 1.4rem;
+    p {
+        margin: 0 10px;     
+        
+    }
+}
 .smiley-face {
     font-size: 25px;
     margin-left: 5px;
@@ -191,27 +207,24 @@
     margin-right: 5px;
 }
 
-// .container-mainfocus {
-//     display: block;
-//     width: 50%;
-//     height: 40%;
-//     text-align: center;
-//     margin: auto;
-//     color: white;
-//     h2 {
-//         font-size: 2rem;
-//         padding-top: 20px;
-//     }
-// }
+.container-mainfocus {
+    display: block;
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    margin: auto;
+    color: white;
+    
+}
 
-// .container-quote {
-//     width: 60%;
-//     position: fixed;
-//     bottom: 30px;
-//     left: 50%;
-//     transform: translateX(-50%);
-//     text-align: center;
-// }
+.container-quote {
+    width: 60%;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
 
 //--------------
 //MEDIA QUERIES START
@@ -232,7 +245,7 @@
     }
     .todo {
         right: 50px;
-        width: 70vw;
+        width: 57vw;
     }
     .clock-face {
         margin-top: 350px;
@@ -240,4 +253,21 @@
     .app-input {
         margin-left: 0;
     }
+    .todo {
+        height: 200px;
+    }
+    .container-mainfocus h2 {
+        font-size: 1.4rem;
+    }
+
+    .clock-face {
+        margin-top: 200px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .todo {
+        right: 20px;
+    }
+    
 }
