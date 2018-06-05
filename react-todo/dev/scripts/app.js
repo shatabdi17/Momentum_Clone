@@ -60,20 +60,18 @@ class App extends React.Component {
     this.setState({showModal: false});
   }
 
-  componentDidMount() {
+componentDidMount() {
     const apiKey='fa46b4109ae577006f5ed95cece9b166855021fc516306c06f350b2323ff70ab';
     const backgroundURL =
       `https://api.unsplash.com/search/photos/?query=flowers&client_id=${apiKey}`;
-      // `https://api.unsplash.com/search/photos/?query=wanderlust&client_id=${apiKey}`;
     
     const randomNum = (max) => Math.floor(Math.random() * max);
     let backgroundResponse;
     axios.get(backgroundURL).then(res => {
-      //console.log(res);
+     
       const randomResults = randomNum(res.data.results.length);
-      //console.log(randomResults);
       backgroundResponse = res.data.results[randomResults].urls.full;
-    })
+})
     
 
     const dbRef = firebase.database().ref('todos');
@@ -103,9 +101,7 @@ class App extends React.Component {
     });
   }
 
-
-
-  handleSubmit(e) {
+handleSubmit(e) {
     e.preventDefault();
   
     const todo = {
@@ -122,20 +118,20 @@ class App extends React.Component {
     this.setState({
       task:''
     });
-  }
-  handleChange(e) {   
+}
+handleChange(e) {   
     this.setState({
       [e.target.name]: e.target.value
     });
     
-  }
+}
 
-  removeTodo(keyToRemove) {
+removeTodo(keyToRemove) {
    
     firebase.database().ref(`todos/${keyToRemove}`).remove();
 }
 
-  completedTodo(keyToUpdate, completed) {
+completedTodo(keyToUpdate, completed) {
     firebase.database().ref(`todos/${keyToUpdate}`)
       .update({
         completed: completed === true ? false : true
@@ -143,14 +139,14 @@ class App extends React.Component {
 }
 
 
-  handleKeyup (e)  {
+handleKeyup (e)  {
     if (e.key === "Enter" && e.target.value.length) {
       this.setState({ 
         name: e.target.value 
       });
       localStorage.setItem("name", e.target.value)
     };
-  } 
+} 
 
     render() {
       return (
