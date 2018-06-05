@@ -1,8 +1,8 @@
 import React from 'react';
 
 class Clock extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             time: new Date(),
             greet: ""
@@ -11,7 +11,11 @@ class Clock extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(() => this.currentTime(), 1000);
+        this.intervalHold = setInterval(() => this.currentTime(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalHold);
     }
 
     currentTime() {
@@ -26,16 +30,15 @@ class Clock extends React.Component {
         });
     }
     render() {
+        let greeting = `Good ${this.state.greet}, ${localStorage.getItem("name")}.`;
+        const clockFace = this.state.time.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
         return (
-            <div>
+            <div className="container-clock">
                 <div className="clock">
                     <h1 className="clock-face">
-                        {this.state.time.toLocaleTimeString("en-GB", {
-                            hour: "2-digit",
-                            minute: "2-digit"
-                        })}
+                        {clockFace}
                     </h1>
-                    <h2 className="greeting">{`Good ${this.state.greet},  ${localStorage.getItem("name")}.`}</h2>
+                    <h2 className="greeting">{greeting}</h2>
             </div>           
             </div>
         );

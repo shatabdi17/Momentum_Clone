@@ -10,7 +10,7 @@ const TodoItem = (props) => {
         // onDragOver={this.handleDragOver}
         // onDrop={this.handleDrop}
         >
-           
+    
             <input type="checkbox" className="form-check-input" checked={props.completed} onChange={() => props.completedTodo(props.firebaseKey, props.completed)}/>        
             <p>{props.task} </p>     
             <button className="todo-delete" onClick={() => props.removeTodo(props.firebaseKey)}>x</button>

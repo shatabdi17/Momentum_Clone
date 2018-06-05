@@ -63,6 +63,15 @@
     font-size: 6vmin;
 }
 
+.container-mainfocus {
+    display: block;
+    width: 30%;
+    height: 40%;
+    text-align: center;
+    border: 1px solid red;
+    margin: auto;
+    color: white;
+}
 // QUOTE STYLES
 
 .container-quote {
@@ -188,15 +197,14 @@
     font-size: 15px;
 }
 
-.completed p {
+.completed {
     text-decoration: line-through;
-    
 }
 
 .todo-delete {
-    width: 15px;
+    width: 16px;
     border-radius: 50%;
-    height: 15px;
+    height: 16px;
     background: transparent;
     color:$white;
     margin-right: 3px;
@@ -210,6 +218,28 @@
     margin-top:3px;
     margin-right: 5px;
 }
+
+// .container-mainfocus {
+//     display: block;
+//     width: 50%;
+//     height: 40%;
+//     text-align: center;
+//     margin: auto;
+//     color: white;
+//     h2 {
+//         font-size: 2rem;
+//         padding-top: 20px;
+//     }
+// }
+
+// .container-quote {
+//     width: 60%;
+//     position: fixed;
+//     bottom: 30px;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     text-align: center;
+// }
 
 //--------------
 //MEDIA QUERIES START

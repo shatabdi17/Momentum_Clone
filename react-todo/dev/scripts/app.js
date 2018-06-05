@@ -4,8 +4,13 @@ import axios from 'axios';
 import TodoItem from './TodoItem';
 import Quote from './Quote';
 import Clock from './Clock';
+import MainFocus from "./MainFocus";
 import firebase from 'firebase';
-
+import NewsList from './NewsList';
+import Modal from 'react-modal';
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const config = {
   apiKey: "AIzaSyB-eGBY9pBO8r0RKJAxLX2L3ygx9j7Rw6I",
@@ -25,13 +30,34 @@ class App extends React.Component {
     this.state = {
       task:'',
       todos:[],
-  
+      showModal: false,
+      anchorEl: null,
     };
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
     this.completedTodo = this.completedTodo.bind(this);
     this.handleKeyup = this.handleKeyup.bind(this);
+
+    this.handleGetNews = this.handleGetNews.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleNewsButtonClick = this.handleNewsButtonClick.bind(this);
+    this.handleMenuClose = this.handleMenuClose.bind(this);
+
+  }
+
+  handleGetNews(provider) {
+    this.setState({newsProvider: provider, anchorEl:null});
+    this.setState({showModal: true});
+  }
+  handleNewsButtonClick(event) {
+    this.setState({anchorEl: event.currentTarget});
+  }
+  handleMenuClose() {
+    this.setState({anchorEl: null});
+  }
+  handleCloseModal() {
+    this.setState({showModal: false});
   }
 
   componentDidMount() {
@@ -128,7 +154,6 @@ class App extends React.Component {
 
     render() {
       return (
-        
         <div
           style={{
     background: `url("${this.state.backgroundURL}") center center no-repeat fixed`,
@@ -151,12 +176,6 @@ class App extends React.Component {
               </div>
             ) : (
             <div>           
-                {/* <div className="main-focus">
-                  <h1>What is the main focus of the day?</h1>
-                  <form action="" onSubmit={this.handleSubmit}>
-                    <input className="todoitem-input" type="text" name="task" onChange={this.handleChange} placeholder="New Todo" value={this.state.task} />
-                  </form>     
-                </div>   */}
               <div className="todo">     
                   <h1>Todo app</h1>  
                   {this.state.todos.length === 0 ? (
@@ -186,14 +205,29 @@ class App extends React.Component {
                 })}
               </ul>
              </div>
-                
-                <div className="container-clock">
-                  <Clock name={this.state.name} />
-                </div>
-                 
-              <div className="container-quote">
-                <Quote />
-              </div>
+              
+              <Button variant="outlined" size="small" aria-owns={this.state.anchorEl ? 'simple-menu' : null}
+                aria-haspopup="true"
+                onClick={this.handleNewsButtonClick}> News </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.anchorEl}
+                  open={Boolean(this.state.anchorEl)}
+                  onClose={this.handleMenuClose}
+                >
+                  <MenuItem onClick={()=> this.handleGetNews("bbc-news")}>BBC</MenuItem>
+                  <MenuItem onClick={()=> this.handleGetNews("cnn")}>CNN</MenuItem>
+                  <MenuItem onClick={()=> this.handleGetNews("bloomberg")}>Bloomberg</MenuItem>
+                </Menu>
+
+              <Clock name={this.state.name} />
+              <MainFocus />
+              <Quote />
+              
+              <Modal isOpen={this.state.showModal} contentLabel="news">
+                <NewsList provider={this.state.newsProvider}/>
+                <Button mini variant="fab" color="primary" size="small" onClick={this.handleCloseModal}>x</Button>
+              </Modal>
 
               </div>
            
@@ -203,23 +237,7 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
 
 
 
-// {this.state.todos.length === 0 ? (
-//     <div className="todo-nothing">
-//       <p>There is nothing to do!</p>
-//       <h1>&#x263A;</h1>
-//     </div>
-//   ) : (
-
-// style = {{
-//   background: `url(https://source.unsplash.com/collection/nature${
-//     window.screen.width
-//     }x${window.screen.height}) center center no-repeat fixed`,
-//     backgroundSize: "cover",
-//       height: "100vh",
-//         width: "100vw"
-
-// }}

@@ -14,8 +14,7 @@ class Quote extends React.Component {
        
         const quoteURL = 
         "https://talaikis.com/api/quotes/random/";
-        // const quoteURL = "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
-
+        
         axios.get(quoteURL).then(res => {
             console.log(res);
             this.setState({
@@ -28,7 +27,7 @@ class Quote extends React.Component {
 
     render() {
         return ( 
-         <div>
+         <div className="container-quote">
                 <div className="quote" >
                     <q className="quote-body" >
                         {this.state.quote}
