@@ -16,13 +16,13 @@ const styles = theme => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
-  gridList: {
-    width: '100%',
-    height: '100%',
-  },
-  subheader: {
-    width: '100%',
-  },
+  // gridList: {
+  //   width: '100%',
+  //   height: '100%',
+  // },
+  // subheader: {
+  //   width: '100%',
+  // },
 });
 
 class NewsList extends React.Component {

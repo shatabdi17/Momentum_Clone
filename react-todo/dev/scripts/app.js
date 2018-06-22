@@ -155,7 +155,10 @@ handleKeyup (e)  {
     background: `url("${this.state.backgroundURL}") center center no-repeat fixed`,
     backgroundSize: "cover",
       height: "100vh",
-        width: "100vw"
+      width: "100vw",
+      position: "relative",
+      minHeight: "600px",
+      overflow: "scroll",
 
 }}>
           {localStorage.getItem("name") === null ? (
@@ -221,7 +224,7 @@ handleKeyup (e)  {
               <Quote />
               
               <Modal isOpen={this.state.showModal} contentLabel="news">
-                <Button style={{top:"-19px", left:"-19px"}} mini variant="fab" color="primary" size="small" onClick={this.handleCloseModal}>x</Button>
+                <Button style={{top:"-17px", left:"-17px"}} mini variant="fab" color="primary" size="small" onClick={this.handleCloseModal}>x</Button>
                 <NewsList provider={this.state.newsProvider}/>
               </Modal>
 
